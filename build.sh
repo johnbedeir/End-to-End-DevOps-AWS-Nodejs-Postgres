@@ -6,6 +6,7 @@ namespace="nodejs-app"
 region="eu-central-1"
 image_name="702551696126.dkr.ecr.eu-central-1.amazonaws.com/nodejs-app:latest"
 domain="johnydev.com"
+dbsecret="db-password-secret"
 # End Variables
 
 # create the cluster
@@ -49,7 +50,7 @@ PASSWORD=$(openssl rand -base64 12)
 
 # Store the generated password in k8s secrets
 echo "--------------------Store the generated password in k8s secret--------------------"
-kubectl create secret generic db-password-secret --from-literal=DB_PASSWORD=$PASSWORD --namespace=$namespace || true
+kubectl create secret generic $dbsecret --from-literal=DB_PASSWORD=$PASSWORD --namespace=$namespace || true
 
 # Deploy the application
 echo "--------------------Deploy App--------------------"
@@ -61,7 +62,7 @@ sleep 60s
 
 # Get ingress URL
 echo "--------------------Ingress URL--------------------"
-kubectl get ingress nodejs-app-ingress -n nodejs-app -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+kubectl get ingress nodejs-app-ingress -n $namespace -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
 echo " "
 echo " "
 echo "--------------------Application URL--------------------"
