@@ -26,11 +26,10 @@ jobs:
         run: |
           kubectl version --client
 
-      - name: Set up kubeconfig
-        run: echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
+      # - name: Set up kubeconfig
+      #   run: echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
 
       - name: Deploy to Kubernetes
         run: |
           echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
-          export KUBECONFIG=kubeconfig
           kubectl apply -f k8s
