@@ -18,16 +18,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up kubeconfig
-        env:
-          KUBECONFIG_FILE: ${{ secrets.KUBECONFIG_SECRET }}
-        run: |
-          echo "$KUBECONFIG_FILE" | base64 -d > kubeconfig
-          
-      - name: Set up kubeconfig
-        run: |
-          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
-          export KUBECONFIG=kubeconfig
+        run: echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
 
       - name: Deploy to Kubernetes
+        env:
+            KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: |
-          kubectl apply -f k8s/ 
+          kubectl apply -f k8s
