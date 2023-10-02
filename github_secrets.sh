@@ -39,7 +39,7 @@ echo "Storing Kubeconfig as GitHub secrets in the repository $OWNER/$REPO"
 SECRET_NAME="KUBECONFIG_SECRET"
 
 echo "Generating kubeconfig..."
-kubeconfig=$(aws eks --region eu-central-1 update-kubeconfig --name cluster-1-test --kubeconfig /home/$USER/.kube/config 2>aws_error.log | base64 | tr -d '\n')
+kubeconfig=$(cat /home/$USER/.kube/config | base64)
 
 if [ $? -ne 0 ]; then
     echo "Failed to generate kubeconfig. Check aws_error.log for details."
