@@ -21,7 +21,9 @@ jobs:
         run: echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
 
       - name: Deploy to Kubernetes
-        env:
-            KUBECONFIG: ${{ github.workspace }}/kubeconfig
         run: |
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig
+          export KUBECONFIG=kubeconfig
           kubectl apply -f k8s
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG_SECRET }}  
