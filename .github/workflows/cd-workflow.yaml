@@ -17,13 +17,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: 'latest'
+
+      - name: Verify kubectl
+        run: |
+          kubectl version --client
+
       - name: Set up kubeconfig
         run: echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
 
       - name: Deploy to Kubernetes
         run: |
-          echo "${{ secrets.KUBECONFIG }}" > kubeconfig
+          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
           export KUBECONFIG=kubeconfig
           kubectl apply -f k8s
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG_SECRET }}  
