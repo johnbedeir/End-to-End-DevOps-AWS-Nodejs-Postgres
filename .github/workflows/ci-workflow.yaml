@@ -1,11 +1,11 @@
-name: CI
+name: Continuous Integration
 on:
   push:
     branches: [ main ]
 
 jobs:
 
-  deploy:
+  build:
     name: Build image
     runs-on: ubuntu-latest
 
