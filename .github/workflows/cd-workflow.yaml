@@ -27,11 +27,12 @@ jobs:
           kubectl version --client
 
       - name: Deploy to Kubernetes
-        run: |
-          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
-          export KUBECONFIG=kubeconfig
-          kubectl apply -f k8s
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
+        run: |
+          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+          kubectl apply -f k8s
+
