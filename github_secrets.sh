@@ -7,17 +7,6 @@ REPO="End-to-end-DevOps-nodejs-postgres"
 # Set AWS credentials - ideally, these would be read from a secure source or environment variables
 AWS_ACCESS_KEY_ID=$(awk -F "=" '/aws_access_key_id/ {print $2}' ~/.aws/credentials | xargs)
 AWS_SECRET_ACCESS_KEY=$(awk -F "=" '/aws_secret_access_key/ {print $2}' ~/.aws/credentials | xargs)
-KUBECONFIG=$(cat $HOME/.kube/config | base64)
-
-
-# Add kubeconfig in GitHub secret
-echo $KUBECONFIG | gh secret set KUBECONFIG_SECRET --repos=$OWNER/$REPO
-    if [ $? -eq 0 ]; then
-        echo "Secret KUBECONFIG set successfully."
-    else
-        echo "Failed to set secret KUBECONFIG."
-        exit 1
-    fi
 
 # Function to create or update GitHub secret
 create_secret() {
