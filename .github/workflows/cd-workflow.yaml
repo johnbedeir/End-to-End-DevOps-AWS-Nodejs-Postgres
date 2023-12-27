@@ -35,7 +35,7 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
+          echo "${{ secrets.KUBECONFIG_SECRET }}" > kubeconfig
           export KUBECONFIG=kubeconfig
           kubectl apply -f k8s
 
