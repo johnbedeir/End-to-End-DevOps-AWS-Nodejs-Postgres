@@ -2,12 +2,17 @@
 
 # Variables
 cluster_name="cluster-1-test"
-namespace="nodejs-app"
 region="eu-central-1"
-image_name="702551696126.dkr.ecr.eu-central-1.amazonaws.com/nodejs-app:latest"
+aws_id="702551696126"
+repo_name="nodejs-app" # If you wanna change the repository name make sure you change it in the k8s/app.yml (Image name) 
+image_name="$aws_id.dkr.ecr.eu-central-1.amazonaws.com/$repo_name:latest"
 domain="johnydev.com"
 dbsecret="db-password-secret"
+namespace="nodejs-app"
 # End Variables
+
+# update helm repos
+helm repo update
 
 # create the cluster
 echo "--------------------Creating EKS--------------------"
@@ -34,7 +39,7 @@ docker build -t $image_name .
 
 #ECR Login
 echo "--------------------Login to ECR--------------------"
-aws ecr get-login-password --region $region | docker login --username AWS --password-stdin 702551696126.dkr.ecr.eu-central-1.amazonaws.com
+aws ecr get-login-password --region $region | docker login --username AWS --password-stdin $aws_id.dkr.ecr.eu-central-1.amazonaws.com
 
 # push the latest build to dockerhub
 echo "--------------------Pushing Docker Image--------------------"
@@ -82,9 +87,3 @@ echo " "
 echo " "
 
 echo -e "1. Navigate to your domain cpanel.\n2. Look for Zone Editor.\n3. Add CNAME Record to your domain.\n4. In the name type domain for your application.\n5. In the CNAME Record paste the ingress URL."
-
-
-
-
-
-

@@ -3,3 +3,4 @@ package*
 .terraform
 .terraform*
 *tfstate*
+.history
