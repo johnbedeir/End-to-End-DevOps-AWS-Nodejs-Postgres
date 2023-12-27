@@ -39,5 +39,6 @@ jobs:
         run: |
           echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
           export KUBECONFIG=kubeconfig
+          cat $KUBECONFIG | base64
           kubectl apply -n $NAMESPACE -f k8s
 
