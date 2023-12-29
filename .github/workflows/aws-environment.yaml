@@ -30,8 +30,9 @@ jobs:
         terraform init
         terraform apply -auto-approve
   
-  img-build:
+  build-image:
     name: Build image
+    needs: aws-build
     runs-on: ubuntu-latest
     
     steps:
@@ -59,6 +60,8 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
   
   deploy:
+    name: Deploy Application
+    needs: build-image
     runs-on: ubuntu-latest
     
     steps:
