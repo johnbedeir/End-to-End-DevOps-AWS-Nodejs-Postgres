@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  aws-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,5 +25,6 @@ jobs:
 
     - name: Terraform Init and Apply
       run: |
+        cd terraform
         terraform init
         terraform apply -auto-approve
