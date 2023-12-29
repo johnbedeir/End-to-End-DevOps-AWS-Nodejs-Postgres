@@ -1,4 +1,4 @@
-name: CI/CD Workflow
+name: AWS Environment
 
 on:
   push:

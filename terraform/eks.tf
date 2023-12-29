@@ -135,7 +135,7 @@ module "eks" {
   eks_managed_node_groups = {
     system = {
       min_size     = 1
-      max_size     = 3
+      max_size     = 6
       desired_size = 1
 
       instance_types = var.asg_sys_instance_types
