@@ -34,6 +34,11 @@ spec:
                   key: DB_PASSWORD
             - name: DB_PORT
               value: "5432"
+          # resources:
+          #   requests:
+          #     memory: "256Mi"
+          #   limits:
+          #     memory: "512Mi"
 ---
 apiVersion: v1
 kind: Service
