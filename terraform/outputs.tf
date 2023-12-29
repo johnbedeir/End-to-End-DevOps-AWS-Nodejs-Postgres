@@ -11,3 +11,7 @@ output "cluster_security_group_id" {
 output "ecr_repository_name" {
   value = aws_ecr_repository.ecr_repo.name
 }
+
+output "bucket_name" {
+  value = aws_s3_bucket.tf_bucket.bucket
+}
