@@ -12,6 +12,6 @@ output "ecr_repository_name" {
   value = aws_ecr_repository.ecr_repo.name
 }
 
-output "bucket_name" {
-  value = aws_s3_bucket.tf_bucket.bucket
-}
+# output "bucket_name" {
+#   value = aws_s3_bucket.tf_bucket.bucket
+# }
