@@ -1,18 +1,15 @@
 name: Continuous Integration
 
 on:
-  workflow_run:
-    workflows: ["AWS Environment"]
-    types:
-      - completed
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
 
   build:
     name: Build image
     runs-on: ubuntu-latest
-
-    if: github.event.workflow_run.conclusion == 'success'
     
     steps:
     - name: Check out code
