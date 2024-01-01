@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # Variables
-REGION="eu-central-1"
+REGION="REGION" #Make sure it is the same in the terraform variables
 REPOSITORY_NAME="nodejs-app"
+BUCKET_NAME=$(cd terraform && terraform output --raw bucket_name)
 # End Variables
 
-# delete all Docker-img from ECR
-echo "--------------------Deleting ECR-IMG--------------------"
+# empty the ecr
+echo "--------------------Empty AWS ECR--------------------"
 ./ecr-img-delete.sh $REGION $REPOSITORY_NAME
 
 # delete AWS resources
