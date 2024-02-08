@@ -12,7 +12,7 @@ export const options = {
 };
 
 export default function () {
-  const res = http.get('http://nodeapp.johnydev.com');
+  const res = http.get('https://nodeapp.YOUR_DOMAIN.com');
   check(res, { 'status was 200': (r) => r.status == 200 });
   sleep(1);
 }
